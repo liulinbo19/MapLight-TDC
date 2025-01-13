@@ -144,8 +144,8 @@ def get_fingerprints(smiles):
     
     fingerprints = []
 
-     fingerprints.append(get_morgan_fingerprints(molecules))
-     fingerprints.append(get_avalon_fingerprints(molecules))
+    fingerprints.append(get_morgan_fingerprints(molecules))
+    fingerprints.append(get_avalon_fingerprints(molecules))
     # fingerprints.append(get_erg_fingerprints(molecules))
     # fingerprints.append(get_rdkit_features(molecules))
 
