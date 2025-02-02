@@ -1,4 +1,4 @@
-code = """
+
 from maplight import *
 from tqdm import tqdm
 import catboost as cb
@@ -81,6 +81,3 @@ for admet_benchmark in [list(benchmark_config.keys())[7]]:
     # 保存结果到文件
     with open('results.txt', 'w') as f:
         f.write(str(results))
-"""
-with open('run_script.py', 'w') as f:
-    f.write(code)
