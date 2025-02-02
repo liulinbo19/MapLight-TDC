@@ -1,4 +1,4 @@
-code = '''
+code = """
 from maplight import *
 from tqdm import tqdm
 import catboost as cb
@@ -37,7 +37,4 @@ group = admet_group(path='data/')
     
     results = 202
     print('\\n\\n{}'.format(results))
-'''
-    # 保存结果到文件
-    with open('results.txt', 'w') as f:
-        f.write(str(results))
+"""
