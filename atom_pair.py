@@ -1,5 +1,5 @@
 
-mport numpy as np
+import numpy as np
 from sklearn import preprocessing
 from rdkit import Chem, RDLogger
 from rdkit.Chem import DataStructs
