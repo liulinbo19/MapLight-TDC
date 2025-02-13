@@ -193,6 +193,7 @@ def get_fingerprints(smiles):
     # fingerprints.append(get_rdkit_fingerprints(molecules))
     # fingerprints.append(get_maccs_fingerprints(molecules))
     fingerprints.append(get_topological_torsion_fingerprints(molecules, n_bits=2048))
+    fingerprints.append(get_atom_pair_fingerprints(molecules, n_bits=2048))
     fingerprints.append(get_rdkit_features(molecules))
 
     return np.concatenate(fingerprints, axis=1)
