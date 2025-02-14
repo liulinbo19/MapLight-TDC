@@ -10,8 +10,7 @@ from rdkit.Chem.rdMolDescriptors import GetHashedMorganFingerprint
 from rdkit.Avalon.pyAvalonTools import GetAvalonCountFP
 from rdkit.Chem import rdReducedGraphs
 from rdkit.ML.Descriptors.MoleculeDescriptors import MolecularDescriptorCalculator
-from rdkit.Chem import rdMolDescriptors
- 
+from rdkit.Chem import rdMolDescriptors, AllChem
 from rdkit.Chem import MACCSkeys 
 
 class scaler:
