@@ -1,18 +1,14 @@
 import numpy as np
-
+import pandas as pd
 from sklearn import preprocessing
-
 from rdkit import Chem
 from rdkit import RDLogger
-
 from rdkit.Chem import DataStructs
 from rdkit.Chem.rdMolDescriptors import GetHashedMorganFingerprint
 from rdkit.Avalon.pyAvalonTools import GetAvalonCountFP
 from rdkit.Chem import rdReducedGraphs
 from rdkit.ML.Descriptors.MoleculeDescriptors import MolecularDescriptorCalculator
-
-from rdkit.Chem import rdMolDescriptors, AllChem
-from rdkit.Chem import MACCSkeys 
+from rdkit.Chem import rdMolDescriptors, AllChem, MACCSkeys, RDKFingerprint
 
 class scaler:
     def __init__(self, log=False):
@@ -52,38 +48,24 @@ class scaler:
 
         return y
 
-
-# from https://github.com/rdkit/rdkit/discussions/3863
 def count_to_array(fingerprint):
-    array = np.zeros((0,), dtype=np.int8)
-    
+    array = np.zeros((1,), dtype=np.int8)
     DataStructs.ConvertToNumpyArray(fingerprint, array)
-
     return array
-
 
 def get_avalon_fingerprints(molecules, n_bits=1024):
     fingerprints = molecules.apply(lambda x: GetAvalonCountFP(x, nBits=n_bits))
-
     fingerprints = fingerprints.apply(count_to_array)
-    
     return np.stack(fingerprints.values)
-
 
 def get_morgan_fingerprints(molecules, n_bits=1024, radius=2):
-    fingerprints = molecules.apply(lambda x: 
-        GetHashedMorganFingerprint(x, nBits=n_bits, radius=radius))
-
+    fingerprints = molecules.apply(lambda x: GetHashedMorganFingerprint(x, nBits=n_bits, radius=radius))
     fingerprints = fingerprints.apply(count_to_array)
-    
     return np.stack(fingerprints.values)
-
 
 def get_erg_fingerprints(molecules):
     fingerprints = molecules.apply(rdReducedGraphs.GetErGFingerprint)
-    
     return np.stack(fingerprints.values)
-    
 
 def get_rdkit_fingerprints(molecules, n_bits=2048):
     fingerprints = molecules.apply(lambda x: RDKFingerprint(x, fpSize=n_bits))
@@ -117,11 +99,6 @@ def get_pattern_fingerprints(molecules, n_bits=2048):
 
 def get_feat_morgan_fingerprints(molecules, n_bits=1024, radius=2):
     fingerprints = molecules.apply(lambda x: AllChem.GetMorganFingerprintAsBitVect(x, radius, nBits=n_bits, useFeatures=True))
-    fingerprints = fingerprints.apply(count_to_array)
-    return np.stack(fingerprints.values)
-
-def get_erg_fingerprints(molecules):
-    fingerprints = molecules.apply(rdMolDescriptors.GetErGFingerprint)
     fingerprints = fingerprints.apply(count_to_array)
     return np.stack(fingerprints.values)
 
