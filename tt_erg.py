@@ -124,10 +124,6 @@ def get_feat_morgan_fingerprints(molecules, n_bits=1024, radius=2):
     fingerprints = fingerprints.apply(count_to_array)
     return np.stack(fingerprints.values)
 
-def get_erg_fingerprints(molecules):
-    fingerprints = molecules.apply(rdMolDescriptors.GetErGFingerprint)
-    fingerprints = fingerprints.apply(count_to_array)
-    return np.stack(fingerprints.values)
 
 # from https://www.blopig.com/blog/2022/06/how-to-turn-a-molecule-into-a-vector-of-physicochemical-descriptors-using-rdkit/
 def get_chosen_descriptors():
@@ -193,6 +189,7 @@ def get_fingerprints(smiles):
 
     # fingerprints.append(get_morgan_fingerprints(molecules))
     # fingerprints.append(get_avalon_fingerprints(molecules))
+    fingerprints.append(get_topological_torsion_fingerprints(molecules, n_bits=2048))
     fingerprints.append(get_erg_fingerprints(molecules))
     # fingerprints.append(get_rdkit_features(molecules))
 
