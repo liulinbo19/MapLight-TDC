@@ -1,4 +1,5 @@
 import numpy as np
+import pandas as pd
 
 from sklearn import preprocessing
 
@@ -10,6 +11,11 @@ from rdkit.Chem.rdMolDescriptors import GetHashedMorganFingerprint
 from rdkit.Avalon.pyAvalonTools import GetAvalonCountFP
 from rdkit.Chem import rdReducedGraphs
 from rdkit.ML.Descriptors.MoleculeDescriptors import MolecularDescriptorCalculator
+
+from rdkit.Chem import rdMolDescriptors, AllChem, MACCSkeys, RDKFingerprint
+
+
+
 
 
 class scaler:
