@@ -92,40 +92,13 @@ def get_rdkit_fingerprints(molecules, n_bits=2048):
     fingerprints = fingerprints.apply(count_to_array)
     return np.stack(fingerprints.values)
 
-def get_maccs_fingerprints(molecules):
-    fingerprints = molecules.apply(MACCSkeys.GenMACCSKeys)
-    fingerprints = fingerprints.apply(count_to_array)
-    return np.stack(fingerprints.values)
 
 def get_topological_torsion_fingerprints(molecules, n_bits=2048):
     fingerprints = molecules.apply(lambda x: rdMolDescriptors.GetHashedTopologicalTorsionFingerprintAsBitVect(x, nBits=n_bits))
     fingerprints = fingerprints.apply(count_to_array)
     return np.stack(fingerprints.values)
 
-def get_atom_pair_fingerprints(molecules, n_bits=2048):
-    fingerprints = molecules.apply(lambda x: rdMolDescriptors.GetHashedAtomPairFingerprintAsBitVect(x, nBits=n_bits))
-    fingerprints = fingerprints.apply(count_to_array)
-    return np.stack(fingerprints.values)
 
-def get_layered_fingerprints(molecules, n_bits=2048):
-    fingerprints = molecules.apply(lambda x: Chem.LayeredFingerprint(x, fpSize=n_bits))
-    fingerprints = fingerprints.apply(count_to_array)
-    return np.stack(fingerprints.values)
-
-def get_pattern_fingerprints(molecules, n_bits=2048):
-    fingerprints = molecules.apply(lambda x: Chem.PatternFingerprint(x, fpSize=n_bits))
-    fingerprints = fingerprints.apply(count_to_array)
-    return np.stack(fingerprints.values)
-
-def get_feat_morgan_fingerprints(molecules, n_bits=1024, radius=2):
-    fingerprints = molecules.apply(lambda x: AllChem.GetMorganFingerprintAsBitVect(x, radius, nBits=n_bits, useFeatures=True))
-    fingerprints = fingerprints.apply(count_to_array)
-    return np.stack(fingerprints.values)
-
-def get_erg_fingerprints(molecules):
-    fingerprints = molecules.apply(rdMolDescriptors.GetErGFingerprint)
-    fingerprints = fingerprints.apply(count_to_array)
-    return np.stack(fingerprints.values)
 
 # from https://www.blopig.com/blog/2022/06/how-to-turn-a-molecule-into-a-vector-of-physicochemical-descriptors-using-rdkit/
 def get_chosen_descriptors():
